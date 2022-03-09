@@ -35,6 +35,7 @@
     "fullName"=>"Nom complet",
     "firstName"=>"Prénom",
     "lastName" =>"Nom",
-    "address"=>"Adresse"
+    "address"=>"Adresse",
+    "reset"=>"Retour"
   ]
 ?>

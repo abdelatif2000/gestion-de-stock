@@ -8,7 +8,8 @@ trait HelperTraits {
         if ($item->name==$request->name  || 
            ( isset($item->QR) && $item->QR==$request->QR )||
            ( isset($item->fullName) && $item->fullName==$request->fullName )||
-           ( isset($item->ICE) && $item->ICE==$request->ICE )
+           ( isset($item->ICE) && $item->ICE==$request->ICE )||
+           ( isset($item->email) && $item->ICE==$request->email )
            ) {
             $request->request->add(["isDeleted"=>0]);
             $model::find($item->id)->update($request->all());

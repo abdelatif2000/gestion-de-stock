@@ -21,8 +21,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>{{ __('product.QR') }} *</label>
-                                        <input value="{{ $result->QR }}" name="QR" type="text" class="form-control"
-                                            placeholder="Enter Product Name" />
+                                        <input value="{{old('QR') ? old('QR') : $result->QR }}" name="QR" type="text" class="form-control"
+                                            placeholder="{{ __('product.QR') }}" />
                                         @error('QR')
                                             <div class="help-block with-errors text-danger">{{ $message }}</div>
                                         @enderror
@@ -31,8 +31,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>{{ __('product.product_name') }} *</label>
-                                        <input value="{{ $result->name }}" name="name" type="text"
-                                            class="form-control" placeholder="Enter Product Name" />
+                                        <input value="{{old('name') ? old('name') : $result->name }}" name="name" type="text"
+                                            class="form-control" placeholder="{{ __('product.product_name') }}" />
                                         @error('name')
                                             <div class="help-block with-errors text-danger">{{ $message }}</div>
                                         @enderror
@@ -44,22 +44,13 @@
                                         <select name='category_id' class="selectpicker form-control" data-style="py-0">
                                             <option value="">{{ __('category.select_category') }}</option>
                                             <option value="">{{ __('public.none') }}</option>
-                                            @if (isset($result->category->id))
-                                                <option value="{{ $result->category->id }}" selected>
-                                                    {{ $result->category->name }}</option>
-                                            @endif
                                             @foreach ($categories as $category)
-                                                @if (isset($result->category->id) )
-                                                    @if($result->category->id != $category->id)
-                                                    <option value="{{ $category->id }}">
-                                                        {{ $category->name }}
-                                                    </option>
-                                                    @endif
-                                                @else
-                                                <option value="{{ $category->id }}">
-                                                    {{ $category->name }}
-                                                </option>
-                                                @endif
+                                               <option value="{{$category->id}}"
+                                                {{  old('category_id') && old('category_id')==$category->id ? "selected" :(
+                                                 isset($result->category->id) && $result->category->id==$category->id ? "selected" :"" )}}
+                                               >
+                                                {{ $category->name }}
+                                               </option>
                                             @endforeach
                                         </select>
                                         @error('category_id')
@@ -100,8 +91,9 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary mr-2"><i class="fas fa-edit"></i>
-                                    {{ __('public.update') }}</button>
+                                <button type="submit" class="btn btn-primary mr-2">  <i class="fas fa-plus"></i>{{__('public.add') }}</button>
+                                 <a href="{{ route('product.index') }}" type="reset" class="btn btn-danger">
+                                    <i class="fas fa-arrow-left"></i> {{__('public.reset')}} </a>
                             </div>
                         </form>
                     </div>

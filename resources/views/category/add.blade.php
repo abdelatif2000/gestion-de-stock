@@ -39,10 +39,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-center" >
-                            <button  type="submit"  class="btn btn-primary mr-2 ">
-                                <i class="fas fa-plus"></i>{{__('public.add')}}
-                            </button>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mr-2">  <i class="fas fa-plus"></i>{{__('public.add') }}</button>
+                                 <a href="{{ route('category.index') }}" type="reset" class="btn btn-danger">
+                                    <i class="fas fa-arrow-left"></i> {{__('public.reset')}} </a>
                             </div>
                         </form>
                     </div>

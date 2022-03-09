@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    {{ __('public.categories') }}
+    {{ __('category.category_list') }}
 @stop
 @section('content')
     <div class="content-page">
@@ -10,7 +10,7 @@
                 <div class="col-lg-12">
                     <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
                         <div>
-                            <h4 class="mb-3 title-size">{{ __('category.category_list') }}</h4>
+                            <h4 class="mb-3 ">{{ __('category.category_list') }}</h4>
                         </div>
                         @can('isAble', 'CategoryController@create')
                             <a href="{{ route('category.create') }}" class="btn btn-primary add-list">

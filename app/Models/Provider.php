@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Provider extends Model
 {
     use HasFactory;
+    protected $table ="providers";
     protected $fillable = [
-        "firstName","lastName","address",'tel','fix',"email","isDeleted","ICE","fullName"
+        "address",'tel',"email","isDeleted","ICE","fullName"
     ];
     public function products(){
         return $this->hasMany(Product::class);

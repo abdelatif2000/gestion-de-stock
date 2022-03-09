@@ -2,11 +2,14 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\ClientRequest;
 use App\Models\Client;
+use Illuminate\Validation\Rule; 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Traits\HelperTraits;
 
 class ClientController extends Controller
 {
+    use HelperTraits;
     public function index()
     {
         $this->authorize('isAble','ClientController@index');
@@ -18,18 +21,23 @@ class ClientController extends Controller
         $this->authorize('isAble','ClientController@index');
         return view('Client.add');
     }
-    public function store(ClientRequest $request)
+    public function store(Request $request)
     {
         $this->authorize('isAble','ClientController@create');
-        Client::create([
-            'firstName' => $request->firstName,
-            'lastName' => $request->lastName,
-            'email' => $request->email,
-            'address' => $request->address,
-            'tel' => $request->tel,
-            'fix' => $request->fix
-        ]);
-        return back()->with('success', 'The Client Added Successfully');
+        if(!$this->checkIsDelete(Client::class,$request)){
+            $rules= [
+                "fullName"=>['required',"unique:clients"],
+                "email"=>["email","required","unique:email"],
+            ];
+            $messages =[];
+            $attributes=[
+                'fullName' =>__('public.fullName'),
+                'address' =>__('product.address'),
+            ];
+            $request->validate($rules,$messages,$attributes);
+            Client::create($request->all());
+         }
+        return redirect()->route("Client.index")->with('success',__('client.success_add'));
     }
     public function edit($id)
     {
@@ -37,26 +45,28 @@ class ClientController extends Controller
         $result = Client::find($id);
         return view('Client.edit', compact('result'));
     }
-    public function update(ClientRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $this->authorize('isAble','ClientController@update');
-        $client=Client::find($id);
-        Client::find($id)->update([
-            'firstName' => $request->firstName,
-            'lastName' => $request->lastName,
-            'email' => $request->email,
-            'address' => $request->address,
-            'tel' => $request->tel,
-            'fix' => $request->fix
-        ]);
-        return redirect('/Client')->with('success', 'The Client  Updated Successfully');
+        $rules= [
+            "fullName"=>['required',Rule::unique("clients")->ignore($id)],
+            "email"=>["email","required",Rule::unique("clients")->ignore($id)],
+        ];
+        $messages =[];
+        $attributes=[
+            'fullName' =>__('public.fullName'),
+            'address' =>__('product.address'),
+        ];
+        $request->validate($rules,$messages,$attributes);
+        Client::find($id)->update($request->all());
+        return redirect()->route("Client.index")->with('success',__('client.success_update'));
     }
     public function destroy(Request $request, $id)
     {
         $this->authorize('isAble','ClientController@update');
         $client=Client::find($id);
         $client->update(['isDeleted'=>1]);
-        return redirect()->back()->with('success', 'The Client Deleted Successfully');
+        return redirect()->route("Client.index")->with('success',__('client.success_delete'));
     }
     public function show($id)
     {

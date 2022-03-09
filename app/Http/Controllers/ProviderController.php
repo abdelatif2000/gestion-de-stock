@@ -1,11 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProviderRequest;
 use App\Models\Provider;
 use Illuminate\Http\Request;
 use App\Traits\HelperTraits;
+use Illuminate\Validation\Rule; 
 
 class ProviderController extends Controller
 {
@@ -26,9 +26,9 @@ class ProviderController extends Controller
        $this->authorize('isAble','ProviderController@create');
        if(!$this->checkIsDelete(Provider::class,$request)){
         $rules= [
-            "fullName"=>["required","unique:provider"],
-            "email"=>["email","unique:provider" ],
-            "ICE"=>["required",'unique:provider'],
+            "fullName"=>["required","unique:providers"],
+            "email"=>["email","unique:providers" ],
+            "ICE"=>["required",'unique:providers'],
         ];
         $messages =[];
         $attributes=[
@@ -37,7 +37,6 @@ class ProviderController extends Controller
             "ICE"=>__('provider.ICE'),
         ];
         $request->validate($rules,$messages,$attributes);
-        dd($request->all());
         Provider::create($request->all());
      }
         return redirect()->route('provider.index')->with('success',__('provider.success_add'));
@@ -48,18 +47,24 @@ class ProviderController extends Controller
         $result = Provider::find($id);
         return view('provider.edit', compact('result'));
     }
-    public function update(ProviderRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        
         $this->authorize('isAble','ProviderController@update');
-        Provider::find($id)->update([
-            'firstName' => $request->firstName,
-            'lastName' => $request->lastName,
-            'email' => $request->email,
-            'address' => $request->address,
-            'tel' => $request->tel,
-            'fix' => $request->fix
-        ]);
-        return redirect('/provider')->with('success', 'The Provider  Updated Successfully');
+        $rules= [
+            "fullName"=>["required",Rule::unique("providers")->ignore($id)],
+            "email"=>["email", Rule::unique("providers")->ignore($id)],
+            "ICE"=>["required",Rule::unique("providers")->ignore($id)],
+        ];
+        $messages =[];
+        $attributes=[
+            'fullName' =>__('public.fullName'),
+            'address' =>__('public.address'),
+            "ICE"=>__('provider.ICE'),
+        ];
+        $request->validate($rules,$messages,$attributes);
+        Provider::find($id)->update($request->all());
+        return redirect()->route('provider.index')->with('success', __('provider.success_update'));
     }
     public function destroy($id)
     {
@@ -67,6 +72,6 @@ class ProviderController extends Controller
         $provider=Provider::find($id);
         $this->authorize('delete',$provider);
         $provider->update(['isDeleted'=>1]);
-        return redirect()->back()->with('success', 'The Provider Deleted Successfully');
+        return redirect()->back()->with('success', __('provider.success_delete'));
     }
 }
