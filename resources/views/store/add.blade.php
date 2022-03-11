@@ -7,50 +7,111 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Add Product To  Store</h4>
+                            <h4 class="card-title">{{__('public.add')}} </h4>
                         </div>
-                    <a href="{{route('Store.index')}}" class="btn btn-primary add-list">List Product</a>
                     </div>
                   
                     <div class="card-body">
-                        <form action="{{route('Store.store')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('Store.store')}}" method="POST">
                             @csrf
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Product * </label>
-                                        <select name='product' class="selectpicker form-control" data-style="py-0">
-                                            <option value="" selected >Select Product</option>
-                                            @foreach($products as $product)
-                                            <option value="{{$product->id}}">{{$product->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('product') <div class="help-block with-errors text-danger">{{$message}}</div> @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Provider * </label>
-                                        <select name='provider' class="selectpicker form-control" data-style="py-0">
-                                            <option value="" selected >Select Provider</option>
-                                            @foreach($providers as $provider)
-                                            <option value="{{$provider->id}}">{{$provider->firstName.' '.$provider->lastName }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('provider') <div class="help-block with-errors text-danger">{{$message}}</div> @enderror
-                                    </div>
-                                </div>
+                               
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Quantity *</label>
-                                        <input name="quantity" type="number" class="form-control" placeholder="Enter Quantity " />
+                                        <label>{{__('provider.provider')}} * </label>
+                                        <select name='product_id' class="selectpicker form-control" data-style="py-0">
+                                            <option value="">{{ __('product.select_product') }} </option>
+                                            @foreach ($providers as $provider)
+                                                @if (old('provider_id') == $provider->id)
+                                                    <option value="{{$provider->id }}" selected>
+                                                        {{ $provider->fullName }}</option>
+                                                @else
+                                                    <option value="{{ $provider->id }}">{{ $provider->fullName }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('provider_id') <div class="help-block with-errors text-danger">{{$message}}</div> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Facture N° *</label>
+                                        <input name="quantity" type="number" class="form-control" placeholder="00.00 " />
                                         @error('quantity') <div class="help-block with-errors text-danger">{{$message}}</div> @enderror
                                     </div>
                                 </div>
-                              
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Date *</label>
+                                        <input name="quantity" type="number" class="form-control" placeholder="00.00 " />
+                                        @error('quantity') <div class="help-block with-errors text-danger">{{$message}}</div> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>{{__('product.product_name')}} * </label>
+                                        <select name='product_id' class="selectpicker form-control" data-style="py-0">
+                                            <option value="">{{ __('product.select_product') }} </option>
+                                            @foreach ($products as $product)
+                                                @if (old('product_id') == $product->id)
+                                                    <option value="{{$product->id }}" selected>
+                                                        {{ $product->name }}</option>
+                                                @else
+                                                    <option value="{{ $product->id }}">{{ $product->name }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('product_id') <div class="help-block with-errors text-danger">{{$message}}</div> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>{{__('public.quantity')}} *</label>
+                                        <input name="quantity" type="number" class="form-control" placeholder="00.00 " />
+                                        @error('quantity') <div class="help-block with-errors text-danger">{{$message}}</div> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>PU HT *</label>
+                                        <input name="quantity" type="number" class="form-control" placeholder="00.00 " />
+                                        @error('quantity') <div class="help-block with-errors text-danger">{{$message}}</div> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Total HT *</label>
+                                        <input name="quantity" type="number" class="form-control" placeholder="00.00 " />
+                                        @error('quantity') <div class="help-block with-errors text-danger">{{$message}}</div> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <button  type="submit" class="btn btn-primary ">  <i class="fas fa-plus"></i>Nouvelle medecamente </button>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary mr-2">Add  Product</button>
-                            <a href="{{route('Store.index')}}" type="reset" class="btn btn-danger">Cancel</a>
+                            {{-- start of DataTable : --}}
+                            <div class="table-responsive rounded mb-3 col-md-12">
+                                <table class="data-table table reponsive-table display  mb-0 tbl-server-info">
+                                    <thead class="bg-white text-uppercase">
+                                        <tr class="ligth ligth-data">
+                                            <th>{{ __('product.product_name') }}</th>
+                                            <th>{{ __('public.quantity') }}</th>
+                                            <th>PU HT</th>
+                                            <th>Total HT</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="ligth-body">
+                                         
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mr-2">  <i class="fas fa-plus"></i>{{__('public.add') }}</button>
+                                 <a href="{{ route('product.index') }}" type="reset" class="btn btn-danger">
+                                    <i class="fas fa-arrow-left"></i> {{__('public.reset')}} </a>
+                            </div>
                         </form>
                     </div>
                 </div>

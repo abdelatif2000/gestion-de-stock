@@ -12,7 +12,6 @@ class StoreController extends Controller
 {
     public function index()
     {
-      
         $this->authorize('isAble','StoreController@index');
         $results = Store::where("isReturned", 0)
         ->selectRaw("id,product_id, SUM(quantity) as total_product")
@@ -23,7 +22,7 @@ class StoreController extends Controller
     {
         $this->authorize('isAble','StoreController@create');
         $products = Product::where("isDeleted", 0)->select(['name', 'id'])->get();
-        $providers = Provider::select(['firstName', 'lastName', 'id'])->get();
+        $providers = Provider::select(["fullName", 'id'])->get();
         return view('store.add', compact('products', 'providers'));
     }
     public function store(StoreRequest $request)

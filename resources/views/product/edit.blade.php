@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @section('title')
-    {{ __('product.product_edit_title') }}
+    {{ __('product.update') }}
 @endsection
 <div class="content-page">
     <div class="container-fluid add-form-list">
@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">{{ __('product.product_edit_title') }} </h4>
+                            <h4 class="card-title">{{ __('product.update') }} </h4>
                         </div>
                     </div>
                     <div class="card-body">

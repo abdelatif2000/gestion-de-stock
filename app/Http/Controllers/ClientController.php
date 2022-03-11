@@ -59,13 +59,19 @@ class ClientController extends Controller
         ];
         $request->validate($rules,$messages,$attributes);
         Client::find($id)->update($request->all());
-        return redirect()->route("Client.index")->with('success',__('client.success_update'));
+        if(isset($_SERVER['HTTP_REFERER'])){
+            return redirect()->back()->with('success',__('client.success_delete'));
+        }
+        return redirect()->route("Client.index")->with('success',__('client.success_delete'));
     }
     public function destroy(Request $request, $id)
     {
         $this->authorize('isAble','ClientController@update');
         $client=Client::find($id);
         $client->update(['isDeleted'=>1]);
+        if(isset($_SERVER['HTTP_REFERER'])){
+            return redirect()->back()->with('success',__('client.success_delete'));
+        }
         return redirect()->route("Client.index")->with('success',__('client.success_delete'));
     }
     public function show($id)
@@ -81,16 +87,17 @@ class ClientController extends Controller
                     $query->with("product")->get();
             }] )->where('isDeleted',0)->get();
          }])->get();
+         $result=$result->find($id);
        $total_rest=0;
        $total_cost=0;
-       foreach($result[0]->commands as $item){
+       foreach($result->commands as $item){
           $rest_order=$item->price_total - $item->rules_sum_total_payment;
           $item->rest=$rest_order;
            $total_rest+=$rest_order;
           $total_cost+=$item->rules_sum_total_payment;
        }
-       $result[0]->total_rest=$total_rest;
-       $result[0]->total_cost=$total_cost;
+       $result->total_rest=$total_rest;
+       $result->total_cost=$total_cost;
          return view('Client.show',compact("result"));
     }
 }

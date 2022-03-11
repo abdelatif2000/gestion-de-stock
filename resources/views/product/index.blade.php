@@ -1,7 +1,10 @@
 @extends('layouts.app')
 @section('title')
-    {{ __('product.product_list') }}
+    {{ __('product.list') }}
 @endsection
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}" />
+@endpush
 @section('content')
     <div class="content-page">
         <div class="container-fluid">
@@ -9,7 +12,7 @@
                 <div class="col-lg-12">
                     <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
                         <div>
-                            <h4 class="mb-3">{{ __('product.product_list') }}</h4>
+                            <h4 class="mb-3">{{ __('product.list') }}</h4>
                         </div>
                         @can('isAble', 'ProductController@create')
                             <a href="{{ route('product.create') }}" class="btn btn-primary add-list">
@@ -27,7 +30,7 @@
                                     <th>{{ __('product.product_name') }}</th>
                                     <th>{{ __('category.category') }}</th>
                                     <th>{{ __('public.price') }}</th>
-                                    <th> {{ __('public.alert') }}</th>
+                                    <th> {{ __('product.alert') }}</th>
                                     <th>{{ __('public.actions') }}</th>
                                 </tr>
                             </thead>
@@ -90,10 +93,7 @@
     @include('components.conformDelete')
     @include('components.alert')
     </div>
-    @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}" />
-    @endpush
     @push('scripts')
-        <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
     @endpush
 @endsection

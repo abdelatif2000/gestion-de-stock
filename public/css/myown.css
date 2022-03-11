@@ -79,3 +79,9 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
 .sorting_1{
     background: none !important;
 }
+tr.ligth.ligth-data * {
+    text-transform: none !important ;
+}
+.table-responsive.rounded.mb-3.col-md-12 {
+    padding: 0 !important;
+}

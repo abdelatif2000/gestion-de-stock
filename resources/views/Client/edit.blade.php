@@ -20,30 +20,30 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>{{__('client.fullName')}} *</label>
-                                        <input value="{{old('fullName') ? old('fullName') :  $result->fullName}}" name="fullName" type="text" class="form-control" placeholder="{{__('client.fullName')}}" />
+                                        <label>{{__('public.fullName')}} *</label>
+                                        <input value="{{old('fullName') ? old('fullName') :  $result->fullName}}" name="fullName" type="text" class="form-control" placeholder="{{__('public.fullName')}}" />
                                         @error('fullName') <div class="help-block with-errors text-danger">{{$message}}</div> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>{{__('client.email')}} </label>
-                                        <input value="{{old('email') ? old('email') : $result->email}}" name="email" type="text" class="form-control" placeholder="{{__('client.email')}}" />
+                                        <label>{{__('public.email')}} </label>
+                                        <input value="{{old('email') ? old('email') : $result->email}}" name="email" type="text" class="form-control" placeholder="{{__('public.email')}}" />
                                         @error('email') <div class="help-block with-errors text-danger">{{$message}}</div> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>{{__('client.address')}}</label>
-                                        <input value="{{old('address') ? old('address') : $result->address}}" name="address" type="text" class="form-control" placeholder="{{__('client.address')}} " />
+                                        <label>{{__('public.address')}}</label>
+                                        <input value="{{old('address') ? old('address') : $result->address}}" name="address" type="text" class="form-control" placeholder="{{__('public.address')}} " />
                                         @error('address') <div class="help-block with-errors text-danger">{{$message}}</div>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>{{__('client.tel')}} </label>
-                                        <input value="{{old('tel') ? old('tel') : $result->tel}}" name="tel" type="text" class="form-control" placeholder="{{__('client.tel')}} " />
+                                        <label>{{__('public.tel')}} </label>
+                                        <input value="{{old('tel') ? old('tel') : $result->tel}}" name="tel" type="text" class="form-control" placeholder="{{__('public.tel')}} " />
                                         @error('tel') <div class="help-block with-errors text-danger">{{$message}}</div>@enderror
                                     </div>
                                 </div>

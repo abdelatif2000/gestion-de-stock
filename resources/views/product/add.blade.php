@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    {{ __('product.product_add') }}
+    {{ __('product.add') }}
 @endsection
 @section('content')
     <div class="content-page">
@@ -10,7 +10,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
-                                <h4 class="card-title">{{ __('product.product_add') }} </h4>
+                                <h4 class="card-title">{{ __('product.add') }} </h4>
                             </div>
                         </div>
 
@@ -91,6 +91,7 @@
                                         </div>
                                     </div>
                                 </div>
+                              
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary mr-2">  <i class="fas fa-plus"></i>{{__('public.add') }}</button>
                                      <a href="{{ route('product.index') }}" type="reset" class="btn btn-danger">

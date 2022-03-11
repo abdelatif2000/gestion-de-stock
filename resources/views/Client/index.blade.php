@@ -38,7 +38,6 @@
                                     <td>{{ $result->email }}</td>
                                     <td>{{ $result->tel }}</td>
                                     <td>
-
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle bg-primary  border-none"
                                                 type="button" id="dropdownMenuButton" data-toggle="dropdown"

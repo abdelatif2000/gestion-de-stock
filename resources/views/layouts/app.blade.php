@@ -6,17 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="eHxAmuF3GGbtFzHrIMSVqwVdHg56xh6oat7wF6oB">
 <title>@yield('title')</title>
-<link rel="shortcut icon" href="{{asset('images/favicon.ico')}}"/>
+{{-- <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}"/> --}}
+<link rel="stylesheet" href="{{asset('vendor/%40fortawesome/fontawesome-free/css/all.min.css')}}"/>
 <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"/>
 @stack("styles")
 <link rel="stylesheet" href="{{asset('css/backend.css')}}"/>
 <link rel="stylesheet" href="{{asset('css/myown.css')}}">
-<link rel="stylesheet" href="{{asset('vendor/%40fortawesome/fontawesome-free/css/all.min.css')}}"/>
 {{-- <link rel="stylesheet" href="{{asset('vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css')}}"/> --}}
 {{-- <link rel="stylesheet" href="{{asset('vendor/remixicon/fonts/remixicon.css')}}"/> --}}
 </head>
 <body >
-<div id="loading">
+{{-- <div id="loading">
        <div id="loading-center">
        </div>
       
@@ -42,14 +42,14 @@
             </div>
          </div>
        </div>
-</div>
+</div> --}}
  @include('components.header')
  @include('components.model')
  @include("components.sidbar")
-@yield('content')
+ @yield('content')
 <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
-<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('js/app.js')}}"></script>
+<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 @stack('scripts')
 </body>
 </html>

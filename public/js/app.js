@@ -193,8 +193,8 @@ Index Of Script
         /*---------------------------------------------------------------------
         Page Loader
         -----------------------------------------------------------------------*/
-        jQuery("#load").fadeOut();
-        jQuery("#loading").delay().fadeOut("");
+        // jQuery("#load").fadeOut();
+        // jQuery("#loading").delay().fadeOut("");
 
         /*---------------------------------------------------------------------
         Counter
@@ -389,8 +389,8 @@ Index Of Script
                 "paginate": {
                     "first":      "First",
                     "last":       "Last",
-                    "next":       "<i class='fas fa-long-arrow-alt-right'></i>",
-                    "previous":   "<i class='fas fa-long-arrow-alt-left'></i>"
+                    "next":       "Next",
+                    "previous":   "Previous"
                 }
             }
             });

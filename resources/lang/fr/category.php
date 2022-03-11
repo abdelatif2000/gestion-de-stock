@@ -2,7 +2,7 @@
 
 return [
     "category_add" =>"Ajouter une catégorie",
-    "category_update" =>"Modifier la catégorie",
+    "category_update" =>"Modifier  catégorie",
     'category_details_title'=>"Afficher les détails",
     'category_list'=>"Liste des catégories",
     'category'   =>'Catégorie',
