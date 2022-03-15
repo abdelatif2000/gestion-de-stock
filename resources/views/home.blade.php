@@ -254,14 +254,14 @@
     <script src="{{ asset('vendor/charts/echarts.min.js') }}"></script>
     <script src=" {{ asset('js/jquery-ui.js') }}" ></script>
     <script>
-       let data;
+        let data;
         let earningsWeek = @json($statistic['earningsWeek']);
         let clientsWeek = @json($statistic['clientsWeek']);
         $("#filterByDate").on("click", function() {
              $(".loading-data").css("display","inline-block");
             $.ajax({
                 type: 'GET',
-                url: "{{ route('home.filterByDate') }}",
+                url: "{{route('home.filterByDate') }}",
                 data: {
                     startDate: $("#startDate").val(),
                     endDate: $("#endDate").val()

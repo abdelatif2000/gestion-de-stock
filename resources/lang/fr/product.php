@@ -14,4 +14,6 @@ return [
      'success_delete'=>"Médicament Supprimé avec succès.",
      "success_update"=>"Médicament édité avec succès.",
      "select_product"=>"sélectionner un produit",
+     "new"=>"Nouveau médicament",
+     
 ];

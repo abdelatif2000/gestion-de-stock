@@ -61,7 +61,7 @@ let date= $( function() {
     return date;
   }
 } );
-//filter by date :
+//filter by datejqu :
 const filterDate=(data)=>{
   console.log(data);
   $("#startDate").val("");

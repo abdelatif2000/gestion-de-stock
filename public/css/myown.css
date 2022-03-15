@@ -85,3 +85,12 @@ tr.ligth.ligth-data * {
 .table-responsive.rounded.mb-3.col-md-12 {
     padding: 0 !important;
 }
+svg{
+    width: 1.3em;
+    height: 1.3em;
+}
+div#ui-datepicker-div {
+    z-index: 200 !important;
+    font-size: 14px !important;
+    
+}

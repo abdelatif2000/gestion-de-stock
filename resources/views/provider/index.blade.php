@@ -48,15 +48,9 @@
                                                     aria-labelledby="dropdownMenuButton">
                                                     @can('isAble', 'ProviderController@delete')
                                                         <a class="dropdown-item myLink" data-toggle="modal"
-                                                            data-target="#conformDelete">
+                                                            data-target="#conformDelete{{$result->id}}">
                                                             <i class="far fa-trash-alt mr-1">
                                                             </i> {{ __('public.delete') }}
-                                                            <form id="DeleteItem" class="dropdown-item"
-                                                                action="{{ route('provider.destroy', $result->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method("DELETE")
-                                                            </form>
                                                         </a>
                                                     @endcan
                                                     @can('isAble', 'ProviderController@update')
@@ -68,6 +62,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    @include('components.conformDelete',['model' => 'provider'])
                                 @endforeach
                             </tbody>
                         </table>

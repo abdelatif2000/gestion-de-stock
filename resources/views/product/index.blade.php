@@ -2,9 +2,7 @@
 @section('title')
     {{ __('product.list') }}
 @endsection
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}" />
-@endpush
+
 @section('content')
     <div class="content-page">
         <div class="container-fluid">
@@ -23,7 +21,7 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="table-responsive rounded mb-3">
-                        <table class="data-table table reponsive-table display  mb-0 tbl-server-info">
+                        <table class="data-table table reponsive-table display w-100 mb-0 tbl-server-info">
                             <thead class="bg-white text-uppercase">
                                 <tr class="ligth ligth-data">
                                     <th>{{ __('product.QR') }}</th>
@@ -34,66 +32,117 @@
                                     <th>{{ __('public.actions') }}</th>
                                 </tr>
                             </thead>
-                            <tbody class="ligth-body">
-                                @php($i = 1)
-                                @foreach ($results as $result)
-                                    <tr>
-                                        <td>{{ $result->QR }}</td>
-                                        <td>{{ $result->name }}</td>
-                                        <td>
-                                            @if (isset($result->category->name))
-                                                {{ $result->category->name }}
-                                            @else
-                                                <div class="badge badge-success">{{ __('public.null') }}</div>
-                                            @endif
-                                        </td>
-                                        <td>{{ $result->price }}</td>
-                                        <td>{{ $result->alert }}</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="btn btn-secondary dropdown-toggle bg-primary  border-none"
-                                                    type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <i class="fas fa-cog"></i>
-                                                </button>
-                                                <div class="dropdown-menu refont-size "
-                                                    aria-labelledby="dropdownMenuButton">
-                                                    @can('isAble', 'ProductController@delete')
-                                                        <a class="dropdown-item myLink" 
-                                                            data-toggle="modal"
-                                                             class="remove"
-                                                            data-target="#conformDelete"
-                                                        >
-                                                            <i class="far fa-trash-alt mr-1">
-                                                            </i> {{ __('public.delete') }}
-                                                            <form id="DeleteItem" class="dropdown-item"
-                                                                action="{{route('product.destroy',$result->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method("DELETE")
-                                                            </form>
-                                                        </a>
-                                                    @endcan
-                                                    @can('isAble', 'ProductController@update')
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('product.edit', $result->id) }}">
-                                                            <i class="far fa-edit mr-1"></i>{{ __('public.update') }} </a>
-                                                    @endcan
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
+                          
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-    @include('components.conformDelete')
+  
     @include('components.alert')
     </div>
+    @push('styles')
+    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}" />
+@endpush
     @push('scripts')
         <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+              $('.data-table').DataTable({
+                 processing: true,
+                 serverSide: true,
+                 ajax: "{{route('getProducts')}}",
+                 columns: [
+                    { data: 'QR' },
+                    { data: 'name' },
+                    { data:null},
+                    { data: 'price' },
+                    { data: 'alert' },
+                    { data: 'id',"defaultContent": "",render: function (data){
+                       let content=" <div class='dropdown'>
+                    <button class='btn btn-secondary dropdown-toggle bg-primary  border-none'
+                        type='button' id='dropdownMenuButton' data-toggle='dropdown'
+                        aria-expanded='false'>
+                        <i class='fas fa-cog'></i>
+                    </button>
+                    <div class='dropdown-menu refont-size '
+                        aria-labelledby='dropdownMenuButton'>
+                        @can('isAble', 'ProductController@delete')
+                            <a class='dropdown-item myLink'
+                                data-toggle='modal'
+                                data-target='#conformDelete1'
+                            >
+                                <i class='far fa-trash-alt mr-1'>
+                                </i> {{ __('public.delete')}}
+                            </a>
+                        @endcan
+                        @can('isAble', 'ProductController@update')
+                            <a class='dropdown-item'
+                                href='{{ route('product.edit',1) }}''>
+                                <i class='far fa-edit mr-1 ></i>{{ __('public.update') }}
+                            </a>
+                        @endcan
+                    </div>
+                </div>";
+                console.log(content);
+                       
+                       
+                    } 
+                    }
+                 ],
+              });
+            });
+            </script>
     @endpush
+
 @endsection
+
+
+
+{{-- <tbody class="ligth-body">
+    @php($i = 1)
+    @foreach ($results as $result)
+        <tr>
+            <td>{{ $result->QR }}</td>
+            <td>{{ $result->name }}</td>
+            <td>
+                @if (isset($result->category->name))
+                    {{ $result->category->name }}
+                @else
+                    <div class="badge badge-success">{{ __('public.null') }}</div>
+                @endif
+            </td>
+            <td>{{ $result->price }}</td>
+            <td>{{ $result->alert }}</td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle bg-primary  border-none"
+                        type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <div class="dropdown-menu refont-size "
+                        aria-labelledby="dropdownMenuButton">
+                        @can('isAble', 'ProductController@delete')
+                            <a class="dropdown-item myLink" 
+                                data-toggle="modal"
+                                 class="remove"
+                                data-target="#conformDelete{{$result->id}}"
+                            >
+                                <i class="far fa-trash-alt mr-1">
+                                </i> {{ __('public.delete') }}
+                           
+                            </a>
+                        @endcan
+                        @can('isAble', 'ProductController@update')
+                            <a class="dropdown-item"
+                                href="{{ route('product.edit', $result->id) }}">
+                                <i class="far fa-edit mr-1"></i>{{ __('public.update') }} </a>
+                        @endcan
+                    </div>
+                </div>
+            </td>
+        </tr>
+        @include('components.conformDelete',['model' => 'product'])
+    @endforeach
+</tbody> --}}

@@ -17,7 +17,9 @@ Route::group([ "middleware"=>["auth"]  ],function(){
     Route::get('filterByDate',[HomeController::class ,'filterByDate'])->name("home.filterByDate");
     //routes of products:
     Route::resource('product',App\Http\Controllers\productController::class);
-    Route::get('photo/{id}',[productController::class,'destroyPhoto'])->name("photo.destroyPhoto");     
+    Route::get('photo/{id}',[productController::class,'destroyPhoto'])->name("photo.destroyPhoto");  
+    Route::get('getProducts',[productController::class,'getProducts'])->name("getProducts");  
+
     //routes of  category :
     Route::resource('category',categoryController::class);
     //routes of  provider :
@@ -33,8 +35,9 @@ Route::group([ "middleware"=>["auth"]  ],function(){
         Route::delete('product/{id}',[CommandController::class,'destroyProduct'])->name('Command.destroyProduct');   
         Route::get('invoice/{id}',[CommandController::class,'generateInvoice'])->name('Command.generateInvoice');   
         Route::post('{id}/payment',[CommandController::class,'payment'])->name('Command.payment');  
-        Route::get('{id}/orderInfo',[CommandController::class,'orderInfo'])->name('Command.info');     
+        Route::get('{id}/orderInfo',[CommandController::class,'orderInfo'])->name('Command.info'); 
      });
+
 });
 Auth::routes();
 

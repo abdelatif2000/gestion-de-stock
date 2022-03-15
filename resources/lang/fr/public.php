@@ -8,7 +8,7 @@
     'conform_delete'=>"Êtes-vous sûr de vouloir supprimer ?",
     'updated'   =>'modifié',
      'add'=>'Ajouter',
-    'no'=>'No ',
+    'no'=>'Non',
     "$"=>"DH",
     'yes'=>'Oui',
     'deleted'=>'Supprimé',
@@ -37,6 +37,8 @@
     "firstName"=>"Prénom",
     "lastName" =>"Nom",
     "address"=>"Adresse",
-    "reset"=>"Retour"
+    "reset"=>"Retour",
+    "deleteRecord"=>"Supprimer Record",
+    "date"=>"Date"
   ]
 ?>
